@@ -13,17 +13,21 @@ class Training:
                  ) -> None:
         pass
 
+
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
         pass
+
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
         pass
 
+
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         pass
+
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
