@@ -10,11 +10,11 @@ class InfoMessage:
         self.calories = calories
 
     def get_message(self) -> str:
-        rez = (f'Тип тренировки: {self.training_type};'
-               f'Длительность: {self.duration} ч.;'
-               f'Дистанция: {self.distance} км;'
-               f'Ср. скорость: {self.speed} км/ч;'
-               f'Потрачено ккал: {self.calories}.')
+        rez = (f'Тип тренировки: {self.training_type}; \n'
+               f'Длительность: {self.duration} ч.; \n'
+               f'Дистанция: {self.distance} км; \n'
+               f'Ср. скорость: {self.speed} км/ч; \n'
+               f'Потрачено ккал: {self.calories}. \n')
         return rez
 
 
