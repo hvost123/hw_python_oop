@@ -54,12 +54,12 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        mas = InfoMessage(self.__class__.__name__,
-                          self.duration,
-                          self.get_distance(),
-                          self.get_mean_speed(),
-                          self.get_spent_calories())
-        return mas
+        info = InfoMessage(self.__class__.__name__,
+                           self.duration,
+                           self.get_distance(),
+                           self.get_mean_speed(),
+                           self.get_spent_calories())
+        return info
 
 
 class Running(Training):
@@ -147,15 +147,11 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    if workout_type == 'SWM':
-        test = Swimming(*data)
-
-    elif workout_type == 'RUN':
-        test = Running(*data)
-
-    elif workout_type == 'WLK':
-        test = SportsWalking(*data)
-    return test
+    parameters_train = {"SWM": Swimming, "RUN": Running, "WLK": SportsWalking}
+    if workout_type in parameters_train:
+        return parameters_train[workout_type](*data)
+    else:
+        raise ValueError("Тренировка не найдена")
 
 
 def main(training: Training) -> None:
