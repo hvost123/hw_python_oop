@@ -9,7 +9,7 @@ class InfoMessage:
         self.speed = speed
         self.calories = calories
 
-    def get_message(self):
+    def get_message(self) -> str:
         rez = (f'Тип тренировки: {self.training_type};'
                f'Длительность: {self.duration} ч.;'
                f'Дистанция: {self.distance} км;'
@@ -22,6 +22,7 @@ class Training:
     """Базовый класс тренировки."""
     M_IN_KM: str = 1000
     LEN_STEP: float = 0.65
+    H_IN_MIN = 60
 
     def __init__(self,
                  action: int,
@@ -39,7 +40,7 @@ class Training:
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        speed = self.duration / self.get_distance()
+        speed = self.get_distance() / self.duration
         return speed
 
     def get_spent_calories(self) -> float:
@@ -79,8 +80,9 @@ class Running(Training):
 
 
 class SportsWalking(Training):
-    CALORIES_MEAN_SPEED_MULTIPLIER: float = 0.035
-    CALORIES_MEAN_SPEED_SHIFT: float = 0.029
+    INDEX_1: float = 0.035
+    INDEX_2: float = 0.029
+    H_IN = 0.278
 
     """Тренировка: спортивная ходьба."""
     def __init__(self,
@@ -93,12 +95,10 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        calories = ((self.CALORIES_MEAN_SPEED_MULTIPLIER
-                    * self.weight
-                    + (self.get_mean_speed()**2 / self.height)
-                    * self.CALORIES_MEAN_SPEED_SHIFT
-                    * self.weight)
-                    * (self.duration / 60))
+        calories = ((self.INDEX_1 * self.weight + (self.get_mean_speed()
+                    * self.H_IN)**2) / (self.height / self.M_IN_KM)
+                    * self.INDEX_2 * self.weight * self.duration
+                    * self.H_IN_MIN)
         return calories
 
 
@@ -127,8 +127,8 @@ class Swimming(Training):
         return speed
 
     def get_spent_calories(self) -> float:
-        calories = ((self.get_mean_speed() + self.INDEX_1)
-                    * self.INDEX_2 * self.weight * self.duration)
+        calories = ((self.get_mean_speed() + self.INDEX_1) * self.INDEX_2
+                    * self.weight * self.duration)
         return calories
 
 
