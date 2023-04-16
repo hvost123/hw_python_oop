@@ -6,8 +6,8 @@ from dataclasses import dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     training_type: str
-    distance: float
     duration: float
+    distance: float
     speed: float
     calories: float
 
