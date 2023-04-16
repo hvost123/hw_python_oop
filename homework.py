@@ -163,6 +163,7 @@ def main(training: Training) -> None:
     info: InfoMessage = training.show_training_info()
     return print(info.get_message())
 
+
 if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
