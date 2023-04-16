@@ -88,6 +88,7 @@ class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     INDEX_1: float = 0.035
     INDEX_2: float = 0.029
+    KMH_IN_MS: float = 0.278
 
     def __init__(self,
                  action: int,
@@ -100,7 +101,8 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         calories = ((self.INDEX_1 * self.weight
-                    + (self.get_mean_speed()**2 / self.height)
+                    + (self.get_mean_speed()
+                    * self.KMH_IN_MS **2 / self.height)
                     * self.INDEX_2 * self.weight) * (self.duration
                     * self.H_IN_MIN))
         return calories
