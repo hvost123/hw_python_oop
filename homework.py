@@ -92,7 +92,7 @@ class SportsWalking(Training):
     SM_M = 100
 
     def __init__(self,
-                 action: int,
+                 action: float,
                  duration: float,
                  weight: float,
                  height: float,
@@ -100,14 +100,15 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight,)
         self.height = height
 
-    def get_mean_speed(self):
-        speed = self.get_distance() / self.duration * self.KMH_IN_MS
+    def get_mean_speed(self) -> float:
+        speed: float = self.get_distance() / self.duration * self.KMH_IN_MS
         return speed
 
     def get_spent_calories(self) -> float:
-        calories = (((self.INDEX_1 * self.weight + (self.get_mean_speed()**2
-                    / self.height / self.SM_M) * self.INDEX_2
-                    * self.weight) * self.duration * self.H_IN_MIN))
+        calories = (((self.INDEX_1 * self.weight
+                    + (self.get_mean_speed()**2 / (self.height / self.SM_M))
+                    * self.INDEX_2 * self.weight) * self.duration
+                    * self.H_IN_MIN))
         return calories
 
 
@@ -161,6 +162,7 @@ def main(training: Training) -> None:
     """Главная функция."""
     info: InfoMessage = training.show_training_info()
     print(info.get_message())
+    return main
 
 
 if __name__ == '__main__':
