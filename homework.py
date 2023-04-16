@@ -1,10 +1,10 @@
-"""Импортированные методы"""
 from dataclasses import dataclass
 
 
 @dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
+
     training_type: str
     duration: float
     distance: float
@@ -13,16 +13,17 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Формерование строки вывода."""
-        rezult: str = (f'Тип тренировки: {self.training_type}; '
+        result: str = (f'Тип тренировки: {self.training_type}; '
                        f'Длительность: {self.duration:.3f} ч.; '
                        f'Дистанция: {self.distance:.3f} км; '
                        f'Ср. скорость: {self.speed:.3f} км/ч; '
                        f'Потрачено ккал: {self.calories:.3f}.')
-        return rezult
+        return result
 
 
 class Training:
     """Базовый класс тренировки."""
+
     M_IN_KM: int = 1000
     LEN_STEP: float = 0.65
     H_IN_MIN: int = 60
@@ -52,16 +53,17 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        massage = InfoMessage(self.__class__.__name__,
+        message = InfoMessage(self.__class__.__name__,
                               self.duration,
                               self.get_distance(),
                               self.get_mean_speed(),
                               self.get_spent_calories())
-        return massage
+        return message
 
 
 class Running(Training):
     """Тренировка: бег."""
+
     CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
     CALORIES_MEAN_SPEED_SHIFT: float = 1.79
 
@@ -77,6 +79,7 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
+
     CALORIES_MEAN_SPEED_MULTIPLIER: float = 0.035
     CALORIES_MEAN_SPEED_SHIFT: float = 0.029
     KMH_IN_MS: float = 0.278
@@ -108,6 +111,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
+
     LEN_STEP: float = 1.38
     CALORIES_MEAN_SPEED_MULTIPLIER: float = 1.1
     CALORIES_MEAN_SPEED_SHIFT: float = 2.0
@@ -142,7 +146,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    parameters_train = {"SWM": Swimming, "RUN": Running, "WLK": SportsWalking}
+    parameters_train = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
     if workout_type in parameters_train:
         return parameters_train[workout_type](*data)
     else:
@@ -152,7 +156,7 @@ def read_package(workout_type: str, data: list) -> Training:
 def main(training: Training) -> None:
     """Главная функция."""
     info: InfoMessage = training.show_training_info()
-    return print(info.get_message())
+    print(info.get_message())
 
 
 if __name__ == '__main__':
