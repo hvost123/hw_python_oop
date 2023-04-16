@@ -89,6 +89,7 @@ class SportsWalking(Training):
     INDEX_1: float = 0.035
     INDEX_2: float = 0.029
     KMH_IN_MS: float = 0.278
+    SM_M = 100
 
     def __init__(self,
                  action: int,
@@ -101,8 +102,8 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         calories = (((self.INDEX_1 * self.weight + ((self.get_mean_speed()
-                    * self.KMH_IN_MS)**2 / self.height / self.M_IN_KM)
-                    * self.INDEX_2
+                    * self.KMH_IN_MS)**2 / self.height / self.SM_M
+                    / self.M_IN_KM) * self.INDEX_2
                     * self.weight) * self.duration * self.H_IN_MIN))
         return calories
 
