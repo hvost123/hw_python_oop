@@ -80,7 +80,7 @@ class Running(Training):
                     * self.get_mean_speed()
                     + self.CALORIES_MEAN_SPEED_SHIFT)
                     * self.weight / self.M_IN_KM
-                    * (self.duration / self.H_IN_MIN))
+                    * (self.duration * self.H_IN_MIN))
         return calories
 
 
@@ -102,7 +102,7 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         calories = ((self.INDEX_1 * self.weight + (self.get_mean_speed()
-                    * self.KMH_IN_MS**2 / self.height / self.IN_M)
+                    * self.KMH_IN_MS**2 / self.height / self.M_IN_KM)
                     * self.INDEX_2
                     * self.weight) * (self.duration * self.H_IN_MIN))
         return calories
